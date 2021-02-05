@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="temp">%d\u00B0</string>
+    <string name="feel_like">Real feel %d\u00B0</string>
+    <string name="humidity">Humidity %d%%</string>
+    <string name="error">Offline</string>
+    <string name="update_btn">update</string>
+    <string name="empty_data">No data to display, turn on your internet</string>
+</resources>
