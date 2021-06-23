@@ -10,7 +10,6 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.R
 import com.example.weatherapp.databinding.FragmentMainBinding
-import com.example.weatherapp.model.Weather
 import com.example.weatherapp.model.WeatherInfo
 import com.example.weatherapp.model.city.City
 import com.example.weatherapp.model.city.CityItem
@@ -82,7 +80,7 @@ class MainFragment : Fragment() {
     }
 
     private fun fetchData(lat: String, lng: String) {
-        binding.viewModel?.getWeatherData(requireContext(), lat, lng)
+        binding.viewModel?.getWeatherData(lat, lng)
     }
 
     private fun setUpRecyclerView() {
@@ -93,7 +91,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpObserver() {
-        binding.viewModel?.error?.observe(viewLifecycleOwner, Observer {
+        binding.viewModel?.isFailed?.observe(viewLifecycleOwner, Observer {
             if (it) { // Show error dialog
                 AlertDialog.Builder(activity).apply {
                     setTitle("Error")
@@ -105,9 +103,9 @@ class MainFragment : Fragment() {
                 }
             }
         })
-        binding.viewModel?.mediator?.observe(viewLifecycleOwner, Observer {  })
+
         binding.viewModel?.weatherData?.observe(viewLifecycleOwner, Observer {
-            binding.viewModel?.isEmpty?.value = (it == null)
+            binding.viewModel?.isError?.value = (it == null)
             it?.let {
                 processDataToView(it.current)
                 adapter.updateForecastList(it.daily)

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.model.Daily
 import com.example.weatherapp.utils.DATE
-import com.example.weatherapp.utils.toLocalTime
 import com.example.weatherapp.utils.toDegree
+import com.example.weatherapp.utils.toLocalTime
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_forecast_list_item.view.*
 

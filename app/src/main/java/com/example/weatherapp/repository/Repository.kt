@@ -1,11 +1,10 @@
 package com.example.weatherapp.repository
 
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.weatherapp.model.Weather
 import com.example.weatherapp.model.datasource.WeatherDatabase
 import com.example.weatherapp.network.ApiClient
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
@@ -41,10 +40,7 @@ class Repository(context: Context) {
             .subscribe()
     }
 
-    fun getWeatherDb(lat: String, lng: String): LiveData<Weather> {
-        Log.d("TAG", "getWeatherDb: ${db.weatherDao().getWeatherWithLatLong(lat, lng).value}")
-        return db.weatherDao().getWeatherWithLatLong(lat, lng)
-    }
+    fun getWeatherDb(lat: String, lng: String): Single<Weather> = db.weatherDao().getWeatherWithLatLong(lat, lng)
 
     companion object {
         private var INSTANCE: Repository? = null
